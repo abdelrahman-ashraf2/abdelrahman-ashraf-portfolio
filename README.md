@@ -25,4 +25,10 @@ Push to `main`. The workflow in `.github/workflows/pages.yml` builds the project
 
 ## Content integrity
 
-Lab projects, findings, and report content are explicitly labeled as planned or illustrative. No clients, certifications, findings, or achievements are fabricated.
+Portfolio content reflects the supplied CV. Completed projects are limited to authorized lab environments, and only high-level sanitized details are published. The downloadable CV is included as a PDF; the sample report remains explicitly illustrative.
+
+## Contact
+
+- Email: [abdelrahman.a.moustfa@gmail.com](mailto:abdelrahman.a.moustfa@gmail.com)
+- LinkedIn: [abdelrahman-ashraf1](https://www.linkedin.com/in/abdelrahman-ashraf1/)
+- GitHub: [abdelrahman-ashraf2](https://github.com/abdelrahman-ashraf2)

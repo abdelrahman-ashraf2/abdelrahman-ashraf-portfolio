@@ -1187,7 +1187,7 @@ p {
   margin-top: 8px;
   max-width: 350px;
 }
-.contact-links > div {
+.contact-links > a {
   display: flex;
   align-items: center;
   gap: 13px;
@@ -1195,6 +1195,12 @@ p {
   padding: 15px 0;
   font-size: 12px;
   color: #b7cdd9;
+  text-decoration: none;
+  transition: color 160ms ease, border-color 160ms ease;
+}
+.contact-links > a:hover {
+  color: #a8e6ef;
+  border-color: #4d8296;
 }
 .contact-links svg {
   color: #77adbf;
@@ -1326,6 +1332,13 @@ footer {
   font: 9px monospace;
   color: #819baa;
   margin-top: 15px;
+}
+.footer-social a {
+  color: inherit;
+  text-decoration: none;
+}
+.footer-social a:hover {
+  color: #a8e6ef;
 }
 .footer-bottom {
   display: flex;

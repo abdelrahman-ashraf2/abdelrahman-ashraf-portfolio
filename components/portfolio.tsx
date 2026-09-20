@@ -149,7 +149,7 @@ export function Hero() {
       <div>
         <span className="availability">
           <i />
-          Available for Freelance Security Projects
+          Available for Internships & Security Projects
         </span>
         <p className="eyebrow">OFFENSIVE SECURITY / DEFENSIVE THINKING</p>
         <h1>
@@ -172,7 +172,7 @@ export function Hero() {
           <a className="primary-link" href="#projects">
             View Security Projects <ArrowUpRight size={17} />
           </a>
-          <a className="secondary-link" href="./resume.txt" download>
+          <a className="secondary-link" href="./Abdelrahman_Ashraf_CV.pdf" download>
             <Download size={14} />
             Download Resume
           </a>
@@ -181,7 +181,7 @@ export function Hero() {
           </a>
         </div>
         <p className="micro-copy">
-          Résumé summary · Based on the information in this portfolio
+          One-page CV · PDF · Updated August 2026
         </p>
       </div>
       <div className="security-visual">
@@ -262,6 +262,10 @@ export function About() {
           I’m Abdelrahman, a junior penetration tester and vulnerability analyst
           building my career in offensive security through hands-on training and
           practical security labs.
+        </p>
+        <p className="body-copy">
+          I’m pursuing a B.Eng. in Cyber Security and Data Analysis at Menoufia
+          University’s Faculty of Electronic Engineering (2023–2028).
         </p>
         <p className="body-copy">
           My experience spans network penetration testing, web application
@@ -398,15 +402,15 @@ export function ProjectCard({
         {project.id === '01' ? (
           <div className="web-diagram">
             <div>
-              <Globe size={17} /> lab.application <span>SCOPED</span>
+              <Network size={17} /> Project Ban-Win7 <span>COMPLETED</span>
             </div>
             <p>
-              Authentication <span>→</span> Access control
+              5 documented findings <span>→</span> 5-page report
             </p>
             <p>
-              Session analysis <span>→</span> Validation
+              Evidence <span>→</span> Impact <span>→</span> Remediation
             </p>
-            <small>TEST PLAN / AWAITING EVIDENCE</small>
+            <small>CONTROLLED WINDOWS 7 LAB</small>
           </div>
         ) : project.id === '02' ? (
           <div className="attack-path">
@@ -437,17 +441,17 @@ export function ProjectCard({
         )}
         <div className="project-art-bottom">
           <span>{project.category}</span>
-          <span>ILLUSTRATIVE</span>
+          <span>COMPLETED LAB</span>
         </div>
       </div>
       <div className="project-content">
-        <span className="status-pill">Planned Case Study</span>
+        <span className="status-pill">Completed Lab Project</span>
         <p className="project-type">{project.type}</p>
         <h3>{project.title}</h3>
         <p>{project.description}</p>
         <div className="project-actions">
           <Button variant="ghost" className="text-button" onClick={onOpen}>
-            {project.id === '03' ? 'View Assessment' : 'View Case Study'}{' '}
+            View Project{' '}
             <ArrowUpRight size={15} />
           </Button>
           {project.report && (
@@ -478,7 +482,7 @@ export function Projects({
           number="05"
           label="PROJECTS & CASE STUDIES"
           title="From methodology to evidence."
-          description="A portfolio lab roadmap. These planned case studies show assessment scope and intended deliverables; completed findings and evidence have not yet been added."
+          description="Completed, authorized lab work covering internal penetration testing, vulnerable machines, web security practice, evidence collection, and technical reporting."
         />
         <span className="outline-label">
           <ShieldCheck size={13} /> AUTHORIZED LABS ONLY
@@ -589,13 +593,13 @@ export function Training() {
           number="07"
           label="TRAINING & CERTIFICATIONS"
           title="Always building the foundation."
-          description="Current training. No earned certifications are listed yet."
+          description="Current training and completed foundational cybersecurity certifications."
         />
         <div className="training-grid">
           {training.map((t) => (
             <article key={t.provider} className="training-card">
               <div className="training-monogram">
-                {t.provider === 'DEPI' ? 'D' : 'I'}
+                {t.provider.charAt(0)}
               </div>
               <div>
                 <p>{t.provider}</p>
@@ -723,31 +727,26 @@ export function WhyWork() {
     </section>
   );
 }
-function downloadText(filename: string, content: string) {
-  const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = filename;
-  a.click();
-  setTimeout(() => URL.revokeObjectURL(url), 1000);
-}
+const contactEmail = 'abdelrahman.a.moustfa@gmail.com';
 export function Contact() {
   const [message, setMessage] = useState('');
   function submit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const data = new FormData(e.currentTarget);
-    downloadText(
-      'security-assessment-inquiry.txt',
-      [
-        'SECURITY ASSESSMENT INQUIRY — NOT SENT',
-        'This draft was prepared locally. Contact details are not yet configured.',
-        '',
-        ...Array.from(data.entries()).map(([k, v]) => k + ': ' + v),
-      ].join('\n'),
-    );
+    const name = String(data.get('Name') || 'Portfolio visitor');
+    const subject = 'Security assessment inquiry from ' + name;
+    const body = Array.from(data.entries())
+      .map(([key, value]) => key + ': ' + value)
+      .join('\n');
+    window.location.href =
+      'mailto:' +
+      contactEmail +
+      '?subject=' +
+      encodeURIComponent(subject) +
+      '&body=' +
+      encodeURIComponent(body);
     setMessage(
-      'Your inquiry draft has been downloaded. It has not been sent or stored on a server. Email and social contact details are still awaiting configuration.',
+      'Your email app should open with the inquiry prepared. Review it before sending.',
     );
   }
   return (
@@ -764,24 +763,44 @@ export function Contact() {
         </p>
         <span className="availability">
           <i />
-          Available for freelance projects
+          Available for internships & authorized projects
         </span>
         <div className="contact-links">
           {[
-            [Mail, 'Email'],
-            [ExternalLink, 'LinkedIn'],
-            [GitBranch, 'GitHub'],
-          ].map(([Icon, label]) => (
-            <div key={String(label)}>
-              {typeof Icon !== 'string' && <Icon size={18} />}
-              <span>{String(label)}</span>
-              <small>Coming soon</small>
-            </div>
+            {
+              Icon: Mail,
+              label: 'Email',
+              value: contactEmail,
+              href: 'mailto:' + contactEmail,
+            },
+            {
+              Icon: ExternalLink,
+              label: 'LinkedIn',
+              value: 'abdelrahman-ashraf1',
+              href: 'https://www.linkedin.com/in/abdelrahman-ashraf1/',
+            },
+            {
+              Icon: GitBranch,
+              label: 'GitHub',
+              value: 'abdelrahman-ashraf2',
+              href: 'https://github.com/abdelrahman-ashraf2',
+            },
+          ].map(({ Icon, label, value, href }) => (
+            <a
+              key={label}
+              href={href}
+              target={href.startsWith('http') ? '_blank' : undefined}
+              rel={href.startsWith('http') ? 'noreferrer' : undefined}
+            >
+              <Icon size={18} />
+              <span>{label}</span>
+              <small>{value}</small>
+            </a>
           ))}
         </div>
         <p className="micro-copy">
-          Contact details have not been provided. No placeholder address or
-          invented profile is used.
+          Based in Cairo, Egypt · Available for internships and authorized
+          security projects.
         </p>
       </div>
       <form onSubmit={submit} className="contact-form">
@@ -790,8 +809,8 @@ export function Contact() {
           <p>
             <strong>Prepare an assessment inquiry</strong>
             <br />
-            Sending is not configured yet. This form downloads your inquiry as a
-            text file; it does not transmit your information.
+            Submitting opens your email app with a prepared message. Nothing is
+            sent until you review and send it.
           </p>
         </div>
         <div className="form-row">
@@ -868,10 +887,10 @@ export function Contact() {
           />
         </label>
         <Button type="submit" className="large-button form-submit">
-          Start a Security Assessment <ArrowUpRight />
+          Prepare Email Inquiry <ArrowUpRight />
         </Button>
         <p className="micro-copy">
-          Downloads an inquiry draft · Nothing is sent
+          Opens your email app · Review before sending
         </p>
         <p role="status" className="form-status">
           {message}
@@ -900,9 +919,21 @@ export function Footer() {
             ))}
           </nav>
           <div className="footer-social">
-            <span>Email / Pending</span>
-            <span>LinkedIn / Pending</span>
-            <span>GitHub / Pending</span>
+            <a href={'mailto:' + contactEmail}>Email</a>
+            <a
+              href="https://www.linkedin.com/in/abdelrahman-ashraf1/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              LinkedIn
+            </a>
+            <a
+              href="https://github.com/abdelrahman-ashraf2"
+              target="_blank"
+              rel="noreferrer"
+            >
+              GitHub
+            </a>
           </div>
         </div>
         <div className="footer-bottom">
@@ -975,20 +1006,16 @@ export default function Portfolio() {
                 {project.title}
               </DialogTitle>
               <DialogDescription>
-                Planned Case Study · {project.type}. No completed assessment,
-                findings, or evidence are claimed.
+                Completed Lab Project · {project.type}. High-level details are
+                based on the supplied CV and sanitized for public display.
               </DialogDescription>
               <div className="dialog-body">
                 <span className="status-pill">
-                  Portfolio Lab Project / {project.id}
+                  Completed Lab Project / {project.id}
                 </span>
-                <h3>Assessment objective</h3>
+                <h3>Assessment summary</h3>
                 <p>{project.objective}</p>
-                <h3>
-                  {project.id === '02'
-                    ? 'Illustrative attack path'
-                    : 'Planned methodology'}
-                </h3>
+                <h3>Assessment workflow</h3>
                 <div className="workflow-chips">
                   {project.workflow.map((w, i) => (
                     <span key={w}>
@@ -999,20 +1026,20 @@ export default function Portfolio() {
                     </span>
                   ))}
                 </div>
-                <h3>Intended deliverables</h3>
+                <h3>Documented outcomes</h3>
                 <ul>
                   {project.deliverables.map((d) => (
                     <li key={d}>{d}</li>
                   ))}
                 </ul>
-                <h3>Planned toolkit</h3>
+                <h3>Tools & focus</h3>
                 <Tags items={project.tools} />
                 <div className="empty-evidence">
-                  <LockKeyhole />
-                  <strong>Evidence will be added after lab completion.</strong>
+                  <ShieldCheck />
+                  <strong>Completed in authorized lab environments.</strong>
                   <p>
-                    Potential findings, risk ratings, reproduction steps, and
-                    retest results remain unpopulated.
+                    Only high-level, sanitized details are published. Credentials
+                    and sensitive lab evidence remain private.
                   </p>
                 </div>
                 {project.report && (
