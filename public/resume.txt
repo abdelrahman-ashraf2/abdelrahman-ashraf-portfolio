@@ -1,0 +1,51 @@
+ABDELRAHMAN ASHRAF
+Penetration Tester & Vulnerability Analyst
+Junior Penetration Tester / Vulnerability Analyst
+Available for Freelance Security Projects
+
+Finding vulnerabilities before attackers do.
+
+PROFILE
+I identify, validate, and document security vulnerabilities in web applications and network environments, providing clear evidence and actionable remediation recommendations. I am developing my career through hands-on training and practical security labs.
+
+EXPERIENCE
+DEPI — Vulnerability Analyst and Penetration Tester (Trainee)
+Jul 2026 – Present
+Currently enrolled in the VAPT track. Curriculum includes Network Penetration Testing, Active Directory Security, Web Vulnerability Assessment, and Mobile Application Security.
+
+Instant — Cybersecurity & Penetration Testing Diploma (Student / Trainee)
+Jan 2026 – Present
+Hands-on training in network penetration testing, Linux/Windows privilege escalation, web application security, and VAPT methodology using Kali Linux, Nmap, Wireshark, Nessus, Metasploit, and Burp Suite.
+Practice includes reconnaissance, scanning, enumeration, vulnerability validation, attack-surface mapping, and security documentation.
+Documentation covers scope, reproducible steps, evidence, impact, and remediation recommendations.
+
+Archon Security — SOC Analyst Internship
+Nov 2025 – Dec 2025
+Triaged security alerts and reviewed suspicious endpoint and network activity.
+Tools: Sysmon, ProcMon, Process Explorer, TCPView, Netstat, Tasklist, Wireshark.
+Created basic IOC documentation and incident notes.
+
+TECHNICAL SKILLS
+VAPT: Reconnaissance, scanning, enumeration, vulnerability assessment, vulnerability validation, exploitation basics, privilege escalation, security reporting.
+Web: HTTP/HTTPS, request/response analysis, authentication testing basics, cookies and sessions, OWASP Top 10 fundamentals, web vulnerability assessment.
+Tools: Kali Linux, Nmap, Wireshark, Metasploit, Burp Suite, LinPEAS, Nessus.
+Operating systems: Linux, Windows, Windows Server, Ubuntu.
+Programming: Python, Bash basics, PowerShell basics, C, C++.
+
+CURRENT TRAINING
+DEPI – VAPT Track (in progress)
+Instant – Cybersecurity & Penetration Testing Diploma (in progress)
+No earned certifications listed.
+
+PORTFOLIO LAB ROADMAP — PLANNED, NOT COMPLETED
+Web Application Penetration Test
+Internal Network & Active Directory Assessment
+Vulnerability Assessment & Executive Report
+
+CONTACT
+Email: Not yet provided
+LinkedIn: Not yet provided
+GitHub: Not yet provided
+
+Résumé summary generated from the supplied portfolio information. No education details, certifications, client projects, or achievements have been invented.
+All security testing is restricted to authorized, controlled, or intentionally vulnerable environments.

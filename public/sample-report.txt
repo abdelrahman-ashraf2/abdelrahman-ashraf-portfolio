@@ -1,0 +1,48 @@
+ABDELRAHMAN ASHRAF — SAMPLE PENETRATION TESTING REPORT
+ILLUSTRATIVE TEMPLATE ONLY
+No assessment has been completed for this template. No real client data, verified finding, assigned CVSS score, or evidence is represented.
+
+01. EXECUTIVE SUMMARY
+[Add the assessment purpose, business context, verified risks, limitations, and prioritized remediation after authorized testing.]
+
+02. SCOPE
+[Add authorized assets, exclusions, test dates, rules of engagement, permitted techniques, and written authorization.]
+
+03. METHODOLOGY
+Reconnaissance → Scanning → Enumeration → Vulnerability Assessment → Validation → Exploitation (if explicitly authorized) → Privilege Escalation (if explicitly authorized) → Reporting → Remediation / Retesting.
+
+04. RISK RATING
+Use demonstrated impact, likelihood, and business context.
+Severity categories: Critical, High, Medium, Low, Informational.
+CVSS score/vector: Not assigned. Add only when applicable and justified.
+
+05. FINDINGS SUMMARY
+No validated findings have been added.
+[Track identifier, title, affected asset, severity, validation status, and remediation owner.]
+
+06. TECHNICAL FINDINGS — EXAMPLE COMPONENT
+Finding identifier: WEB-001 (example only)
+Finding title: Broken Access Control (example only)
+Severity: HIGH (example only; not an assessed risk)
+Status: Placeholder — not validated
+Affected asset: Placeholder Lab Application
+Description: [Add a validated description.]
+Evidence: No evidence added.
+Reproduction steps: [Add reproducible steps supported by actual authorized lab testing.]
+Impact: [Document demonstrated security and business impact.]
+Remediation: [Provide specific corrective actions and verification steps.]
+CVSS / CWE / CVE: Not assigned; add only when applicable.
+Retest status: Not performed.
+
+07. EVIDENCE
+[Add sanitized requests/responses, screenshots, timestamps, and testing context. Remove credentials, tokens, and personal information.]
+
+08. REMEDIATION RECOMMENDATIONS
+[Record recommended actions, responsible owners, priorities, and verification steps.]
+
+09. RETESTING RESULTS
+Not performed.
+[After fixes are applied, repeat relevant tests within authorized scope and record the date, evidence, and resolution status.]
+
+ETHICAL SECURITY
+All security testing showcased in this portfolio is performed in authorized, controlled, or intentionally vulnerable environments.
