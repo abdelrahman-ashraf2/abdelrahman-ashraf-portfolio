@@ -2,6 +2,8 @@
 
 A static, responsive portfolio for a junior Penetration Tester and Vulnerability Analyst. Built with React, TypeScript, Vite, and Tailwind CSS.
 
+Live site: [abdelrahman-ashraf2.github.io/abdelrahman-ashraf-portfolio](https://abdelrahman-ashraf2.github.io/abdelrahman-ashraf-portfolio/)
+
 ## Local development
 
 ```bash
