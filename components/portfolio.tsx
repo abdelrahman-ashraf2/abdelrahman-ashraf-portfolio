@@ -181,7 +181,7 @@ export function Hero() {
           </a>
         </div>
         <p className="micro-copy">
-          One-page CV · PDF · Updated August 2026
+          One-page CV · PDF · Updated September 2026
         </p>
       </div>
       <div className="security-visual">
@@ -425,7 +425,7 @@ export function ProjectCard({
           <div className="assessment-diagram">
             <div>
               <ScanLine />
-              <span>Scanner output</span>
+              <span>HTTP request</span>
             </div>
             <ArrowRight />
             <div>
@@ -435,7 +435,7 @@ export function ProjectCard({
             <ArrowRight />
             <div>
               <FileText />
-              <span>Security report</span>
+              <span>Evidence</span>
             </div>
           </div>
         )}
