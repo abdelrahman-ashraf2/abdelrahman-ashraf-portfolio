@@ -4,7 +4,6 @@ import {
   ArrowUpRight,
   ArrowRight,
   ShieldCheck,
-  Globe,
   Network,
   ScanLine,
   FileText,
@@ -22,6 +21,7 @@ import {
   CheckCheck,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { HeroPortrait } from '@/components/hero-portrait';
 import {
   Dialog,
   DialogContent,
@@ -184,68 +184,7 @@ export function Hero() {
           One-page CV · PDF · Updated September 2026
         </p>
       </div>
-      <div className="security-visual">
-        <div className="visual-head">
-          <span>● ASSESSMENT WORKSPACE</span>
-          <span>LAB / 01</span>
-        </div>
-        <div
-          className="network-map"
-          role="img"
-          aria-label="Illustrative assessment workflow connecting web applications and networks to manual VAPT validation"
-        >
-          <div className="node source">
-            <Globe />
-            <span>WEB APPLICATION</span>
-          </div>
-          <div className="node core">
-            <ShieldCheck size={43} />
-            <span>VAPT</span>
-          </div>
-          <div className="node target">
-            <Network />
-            <span>NETWORK</span>
-          </div>
-          <div className="node validation">
-            <ScanLine />
-            <span>MANUAL VALIDATION</span>
-          </div>
-          <svg
-            viewBox="0 0 480 330"
-            preserveAspectRatio="none"
-            aria-hidden="true"
-          >
-            <path d="M95 85L240 155L385 85M240 155V270" />
-          </svg>
-          <span className="network-label">
-            ILLUSTRATIVE WORKFLOW / NO LIVE SCAN
-          </span>
-        </div>
-        <div className="terminal">
-          <p>
-            ~/security-lab <span>— methodology</span>
-          </p>
-          <code>
-            <span className="cyan">$</span> assessment --approach structured
-            <br />
-            <span className="muted">
-              01 / Identify the attack surface
-              <br />
-              02 / Validate with reproducible evidence
-              <br />
-              03 / Prioritize actionable remediation
-            </span>
-            <br />
-            <span className="cyan">›</span> Authorized environments only{' '}
-            <span className="cursor" aria-hidden="true">
-              ▌
-            </span>
-          </code>
-        </div>
-        <div className="visual-footer">
-          <ShieldCheck size={13} /> Evidence first. Impact understood.
-        </div>
-      </div>
+      <HeroPortrait />
     </section>
   );
 }

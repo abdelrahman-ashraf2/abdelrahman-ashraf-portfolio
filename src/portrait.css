@@ -1,0 +1,352 @@
+.portrait-scene {
+  --portrait-rx: 0deg;
+  --portrait-ry: 0deg;
+  --portrait-light-x: 50%;
+  --portrait-light-y: 35%;
+  margin: 0;
+  min-width: 0;
+  width: 100%;
+  max-width: 520px;
+  justify-self: end;
+  animation: portrait-arrive 1s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.portrait-overline,
+.portrait-footnote {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  font: 8px/1.6 monospace;
+  letter-spacing: 1.3px;
+  color: #8da9b8;
+  padding: 0 4px;
+}
+.portrait-overline {
+  margin-bottom: 15px;
+}
+.portrait-overline > span:last-child {
+  color: #65d9ef;
+}
+.portrait-stage {
+  perspective: 1100px;
+}
+.portrait-card {
+  position: relative;
+  isolation: isolate;
+  height: 535px;
+  border: 1px solid #3b6978;
+  border-radius: 24px;
+  overflow: hidden;
+  background: radial-gradient(
+    ellipse at 52% 32%,
+    #153e50 0%,
+    #0e2331 40%,
+    #0c1924 72%
+  );
+  box-shadow:
+    0 30px 60px -25px #0009,
+    0 0 65px -15px #3bcde017,
+    inset 0 1px 0 #9ee5ef20;
+  transform: rotateX(var(--portrait-rx)) rotateY(var(--portrait-ry));
+  transition: transform 400ms ease-out;
+}
+.portrait-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(#8ccfe40a 1px, transparent 1px),
+    linear-gradient(90deg, #8ccfe40a 1px, transparent 1px);
+  background-size: 36px 36px;
+  mask-image: linear-gradient(#0008, #000, transparent 92%);
+}
+.portrait-orbit,
+.portrait-ring {
+  position: absolute;
+  width: 365px;
+  height: 365px;
+  left: 50%;
+  top: 22%;
+  border-radius: 50%;
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+.portrait-ring {
+  border: 1px solid #6fcee425;
+  box-shadow:
+    0 0 0 24px #5fcee706,
+    0 0 0 25px #67c8e212;
+}
+.portrait-orbit {
+  background: conic-gradient(
+    from 0deg,
+    transparent 60%,
+    #6ee0f400 76%,
+    #6ee0f499 92%,
+    transparent 99%
+  );
+  mask-image: radial-gradient(
+    circle,
+    transparent 69.7%,
+    #000 70%,
+    #000 70.7%,
+    transparent 71%
+  );
+  animation: portrait-orbit 22s linear infinite;
+}
+.portrait-light {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse at var(--portrait-light-x) var(--portrait-light-y),
+    #77dcec19,
+    transparent 62%
+  );
+  pointer-events: none;
+}
+.portrait-picture {
+  position: absolute;
+  inset: 16px 0 0;
+  pointer-events: none;
+  mask-image: linear-gradient(#000 70%, transparent 99%);
+}
+.portrait-picture img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 0;
+}
+.portrait-crosshair {
+  position: absolute;
+  z-index: 3;
+  width: 18px;
+  height: 18px;
+  border-color: #74d6e9;
+  opacity: 0.65;
+  pointer-events: none;
+}
+.portrait-crosshair-tl {
+  left: 20px;
+  top: 20px;
+  border-left: 1px solid;
+  border-top: 1px solid;
+}
+.portrait-crosshair-br {
+  right: 20px;
+  bottom: 20px;
+  border-right: 1px solid;
+  border-bottom: 1px solid;
+}
+.portrait-chip {
+  position: absolute;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  border: 1px solid #72d0e136;
+  border-radius: 8px;
+  background: #0c1d2be8;
+  color: #c2d8e2;
+  font: 10px/1.4 monospace;
+  box-shadow: 0 8px 18px #0003;
+  animation: portrait-float 7s ease-in-out infinite;
+}
+.portrait-chip svg {
+  color: #79d7ea;
+}
+.portrait-chip-web {
+  top: 99px;
+  right: 20px;
+}
+.portrait-chip-evidence {
+  bottom: 166px;
+  left: 20px;
+  animation-delay: -3.5s;
+}
+.portrait-caption {
+  position: absolute;
+  z-index: 3;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 72px 28px 30px;
+  background: linear-gradient(transparent, #0b1825e8 48%, #0b1825 100%);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.portrait-caption-label {
+  display: block;
+  font: 8px/1.5 monospace;
+  letter-spacing: 1.6px;
+  color: #82cada;
+  margin-bottom: 9px;
+}
+.portrait-caption strong {
+  display: block;
+  font-size: clamp(20px, 2vw, 26px);
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: -0.7px;
+}
+.portrait-caption strong > span {
+  color: #65d9ef;
+}
+.portrait-caption-role {
+  display: block;
+  margin-top: 7px;
+  font-size: 10px;
+  line-height: 1.6;
+  color: #b0c1cc;
+}
+.portrait-about {
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  border: 1px solid #65d9ef50;
+  border-radius: 50%;
+  color: #84e0f2;
+  transition:
+    background 180ms,
+    transform 180ms;
+}
+.portrait-about:hover {
+  background: #65d9ef19;
+  transform: translate(2px, -2px);
+}
+.portrait-footnote {
+  margin-top: 15px;
+  letter-spacing: 0.2px;
+}
+.portrait-footnote > span:first-child {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+.portrait-footnote i {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #8bddb4;
+  box-shadow: 0 0 9px #8bddb440;
+}
+.portrait-out-of-view .portrait-orbit,
+.portrait-out-of-view .portrait-chip {
+  animation-play-state: paused;
+}
+@keyframes portrait-arrive {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes portrait-orbit {
+  to {
+    transform: translateX(-50%) rotate(360deg);
+  }
+}
+@keyframes portrait-float {
+  50% {
+    transform: translateY(-6px);
+  }
+}
+@media (max-width: 1100px) and (min-width: 761px) {
+  .portrait-card {
+    height: 495px;
+  }
+  .portrait-chip-web {
+    top: 78px;
+    right: 14px;
+  }
+  .portrait-caption {
+    padding: 65px 20px 28px;
+    gap: 10px;
+  }
+  .portrait-about {
+    width: 36px;
+    height: 36px;
+  }
+  .portrait-caption strong {
+    font-size: 21px;
+  }
+  .portrait-overline {
+    font-size: 7px;
+    letter-spacing: 0.6px;
+  }
+}
+@media (max-width: 760px) {
+  .portrait-scene {
+    max-width: 440px;
+    justify-self: center;
+  }
+  .portrait-card {
+    height: auto;
+    aspect-ratio: 4 / 5;
+  }
+  .portrait-caption {
+    padding: 64px 22px 26px;
+  }
+  .portrait-caption strong {
+    font-size: 23px;
+  }
+  .portrait-chip-web {
+    top: 75px;
+    right: 14px;
+  }
+  .portrait-chip-evidence {
+    bottom: 151px;
+    left: 14px;
+  }
+  .portrait-chip {
+    font-size: 9px;
+    padding: 9px 10px;
+  }
+  .portrait-orbit,
+  .portrait-ring {
+    width: 80%;
+    height: auto;
+    aspect-ratio: 1;
+  }
+}
+@media (max-width: 380px) {
+  .portrait-overline {
+    font-size: 7px;
+    letter-spacing: 0.7px;
+  }
+  .portrait-caption {
+    padding: 54px 18px 23px;
+  }
+  .portrait-caption strong {
+    font-size: 21px;
+  }
+  .portrait-caption-role {
+    font-size: 9px;
+  }
+  .portrait-about {
+    width: 36px;
+    height: 36px;
+  }
+  .portrait-footnote {
+    font-size: 7px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .portrait-scene,
+  .portrait-orbit,
+  .portrait-chip {
+    animation: none;
+  }
+  .portrait-card,
+  .portrait-about:hover {
+    transform: none;
+    transition: none;
+  }
+}
