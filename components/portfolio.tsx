@@ -22,6 +22,7 @@ import {
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { TraceExperience } from '@/components/trace-experience';
+import { TraceJourney, TraceSectionBridge } from '@/components/trace-journey';
 import {
   Dialog,
   DialogContent,
@@ -262,7 +263,7 @@ export function Services() {
         />
         <div className="service-grid">
           {services.map((s, i) => (
-            <article className="service-card reveal" key={s.title}>
+            <article className="service-card" key={s.title}>
               <div className="card-top">
                 <s.icon size={24} />
                 <span>0{i + 1}</span>
@@ -345,7 +346,7 @@ export function ProjectCard({
   onReport: () => void;
 }) {
   return (
-    <article className="project-card reveal">
+    <article className="project-card">
       <div className="project-art">
         <div className="project-meta">
           <span>LAB PROJECT / {project.id}</span>
@@ -910,24 +911,6 @@ export function Footer() {
 export default function Portfolio() {
   const [project, setProject] = useState<Project | null>(null),
     [report, setReport] = useState(false);
-  useEffect(() => {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    const obs = new IntersectionObserver(
-      (entries) =>
-        entries.forEach((e) => {
-          if (e.isIntersecting) {
-            e.target.classList.add('revealed');
-            obs.unobserve(e.target);
-          }
-        }),
-      { threshold: 0.08 },
-    );
-    document.querySelectorAll('.reveal').forEach((e) => {
-      e.classList.add('reveal-ready');
-      obs.observe(e);
-    });
-    return () => obs.disconnect();
-  }, []);
   return (
     <>
       <Navbar />
@@ -937,17 +920,27 @@ export default function Portfolio() {
           WEB APPLICATION SECURITY <span>+</span> NETWORK VAPT <span>+</span>{' '}
           VULNERABILITY ASSESSMENT <span>+</span> SECURITY REPORTING
         </div>
+        <TraceSectionBridge to="about" />
         <About />
+        <TraceSectionBridge to="services" />
         <Services />
+        <TraceSectionBridge to="skills" />
         <Skills />
+        <TraceSectionBridge to="methodology" />
         <Methodology />
+        <TraceSectionBridge to="projects" />
         <Projects onProject={setProject} onReport={() => setReport(true)} />
+        <TraceSectionBridge to="experience" />
         <ExperienceTimeline />
+        <TraceSectionBridge to="training" />
         <Training />
+        <TraceSectionBridge to="reports" />
         <ReportPreview onReport={() => setReport(true)} />
         <WhyWork />
+        <TraceSectionBridge to="contact" />
         <Contact />
       </main>
+      <TraceJourney />
       <Footer />
       <Dialog
         open={!!project}
