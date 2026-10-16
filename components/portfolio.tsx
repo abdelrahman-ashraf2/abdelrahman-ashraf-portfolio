@@ -21,7 +21,7 @@ import {
   CheckCheck,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { EvidenceDesk } from '@/components/evidence-desk';
+import { TraceExperience } from '@/components/trace-experience';
 import {
   Dialog,
   DialogContent,
@@ -153,12 +153,12 @@ export function Hero() {
       </div>
       <div className="hero-introduction">
         <p className="hero-kicker">
-          <span aria-hidden="true" /> SECURITY OPERATIONS / PORTFOLIO
+          <span aria-hidden="true" /> TRACE / A SECURITY PORTFOLIO
         </p>
         <h1>
-          ABDELRAHMAN
+          Abdelrahman
           <span>
-            ASHRAF<span className="ops-name-dot">.</span>
+            Ashraf<span className="ops-name-dot">.</span>
           </span>
         </h1>
         <div className="ops-role">
@@ -188,7 +188,7 @@ export function Hero() {
           <i /> OPEN TO INTERNSHIPS & SECURITY PROJECTS
         </span>
       </div>
-      <EvidenceDesk />
+      <TraceExperience />
       <div className="ops-hero-footer">
         <span>BASED IN CAIRO, EG</span>
         <span>

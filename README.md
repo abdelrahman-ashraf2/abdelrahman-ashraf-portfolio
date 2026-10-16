@@ -21,9 +21,11 @@ The static output is generated in `dist/`.
 
 ## Visual direction
 
-The Security Operations design uses charcoal, amber, and muted olive, with a self-hosted Barlow Condensed headline font. The hero's assessment map explains discovery, validation, and reporting through mouse and keyboard controls. It is an illustration of the workflow rather than a live scanner.
+TRACE uses warm graphite, bone, subdued copper, and sage, with humanist headings and restrained monospace labels. The optional first-visit introduction starts with an illustrative HTTP exchange. Look closer reveals three questions; Follow the evidence connects them to Observe, Validate, and Document before opening the assessment workspace.
 
-The portfolio has no personal portrait. Case studies use horizontal case-file layouts, and motion respects the visitor's reduced-motion preference. The Barlow Condensed font license is included in `public/fonts/`.
+Visitors can skip at any point, press Escape, use keyboard controls, or go directly to the CV, contact, and other sections. A local browser preference remembers the first visit. Replay TRACE is available from the workspace. Reduced-motion visitors enter the portfolio directly and can replay a static, fully annotated version.
+
+The portfolio has no personal portrait. Case studies use horizontal case-file layouts. The assessment map illustrates a testing process; it is not a live scanner.
 
 ## GitHub Pages
 

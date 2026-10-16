@@ -1,10 +1,3 @@
-@font-face {
-  font-family: 'Barlow Condensed';
-  src: url('/fonts/barlow-condensed-latin-700.woff2');
-  font-style: normal;
-  font-weight: 700;
-  font-display: swap;
-}
 .ops-hero {
   position: relative;
   isolation: isolate;
@@ -28,7 +21,7 @@
 }
 .ops-contours path {
   fill: none;
-  stroke: #ff8a24;
+  stroke: #bf815d;
   stroke-width: 0.55;
 }
 .hero-introduction {
@@ -48,25 +41,25 @@
 .hero-kicker > span {
   width: 5px;
   height: 5px;
-  background: #ff8a24;
+  background: #bf815d;
 }
 .ops-hero h1 {
-  font-family: 'Barlow Condensed', Impact, sans-serif;
+  font-family: 'Trebuchet MS', Impact, sans-serif;
   font-size: clamp(62px, 6.5vw, 100px);
   line-height: 0.91;
   letter-spacing: -1.2px;
   font-weight: 700;
-  color: #ede9dc;
+  color: #e7e4d8;
   margin: 0 0 28px;
 }
 .ops-hero h1 > span {
   display: block;
-  color: #ff8a24;
+  color: #bf815d;
   font-size: 1.14em;
   margin-top: 6px;
 }
 .ops-name-dot {
-  color: #ede9dc;
+  color: #e7e4d8;
 }
 .ops-role {
   display: flex;
@@ -129,7 +122,7 @@
   letter-spacing: 0.7px;
 }
 .ops-hero .availability i {
-  background: #c0c493;
+  background: #aab590;
   border-radius: 0;
   box-shadow: none;
 }
@@ -150,14 +143,14 @@
   margin-bottom: 14px;
 }
 .desk-margin > span:first-child {
-  color: #ff8a24;
+  color: #bf815d;
 }
 .evidence-desk {
   position: relative;
   background: #101612;
   border: 1px solid #394332;
   box-shadow:
-    7px 7px 0 #090c0b,
+    7px 7px 0 #10120f,
     7px 7px 0 1px #303c28;
 }
 .evidence-desk::before {
@@ -165,7 +158,7 @@
   content: '';
   width: 48px;
   height: 3px;
-  background: #ff8a24;
+  background: #bf815d;
   top: -2px;
   left: 22px;
 }
@@ -188,11 +181,11 @@
   gap: 8px;
 }
 .casefile-header > span:first-child svg {
-  color: #ff8a24;
+  color: #bf815d;
 }
 .casefile-status {
   font-size: 8px;
-  color: #c0c493;
+  color: #aab590;
 }
 .evidence-map {
   padding: 19px 10px 13px;
@@ -204,7 +197,7 @@
   display: block;
   text-align: center;
   font:
-    700 21px/1.3 'Barlow Condensed',
+    700 21px/1.3 'Trebuchet MS',
     Impact,
     sans-serif;
   letter-spacing: 0.2px;
@@ -254,13 +247,13 @@
 .evidence-desk[data-phase='1'] .map-network rect,
 .evidence-desk[data-phase='2'] .map-evidence rect {
   fill: #392515;
-  stroke: #ff8a24;
+  stroke: #bf815d;
 }
 .evidence-desk[data-phase='0'] .map-scope .map-node-label,
 .evidence-desk[data-phase='1'] .map-web .map-node-label,
 .evidence-desk[data-phase='1'] .map-network .map-node-label,
 .evidence-desk[data-phase='2'] .map-evidence .map-node-label {
-  fill: #ffb16d;
+  fill: #dba98a;
 }
 .map-key {
   display: block;
@@ -303,16 +296,16 @@
   font-size: 9px;
 }
 .casefile-tabs > button:hover {
-  color: #ffb16d;
+  color: #dba98a;
   background: #24271a;
 }
 .casefile-tabs > button[aria-selected='true'] {
-  color: #ff9b42;
+  color: #dba98a;
   background: #252115;
-  box-shadow: inset 0 -2px 0 #ff8a24;
+  box-shadow: inset 0 -2px 0 #bf815d;
 }
 .casefile-tabs > button[aria-selected='true'] > span {
-  color: #ff9b42;
+  color: #dba98a;
 }
 .casefile-notes {
   padding: 21px 22px 20px;
@@ -327,7 +320,7 @@
 }
 .casefile-notes h3 {
   font:
-    700 27px/1.15 'Barlow Condensed',
+    700 27px/1.15 'Trebuchet MS',
     Impact,
     sans-serif;
   color: #e4e5cd;
@@ -357,7 +350,7 @@
   display: flex;
   align-items: center;
   gap: 5px;
-  color: #ff9e4a;
+  color: #dba98a;
   font:
     10px Arial,
     sans-serif;
@@ -378,7 +371,7 @@
   margin-top: 20px;
 }
 .desk-caption > span:last-child {
-  color: #ff8a24;
+  color: #bf815d;
 }
 .ops-hero-footer {
   grid-column: 1 / -1;
@@ -400,7 +393,7 @@
   gap: 13px;
 }
 .ops-hero-footer i {
-  color: #ff8a24;
+  color: #bf815d;
   font-style: normal;
 }
 .ops-hero-footer > a {
@@ -556,5 +549,57 @@
   .hero-panel,
   .evidence-wire {
     animation: none;
+  }
+}
+
+/* TRACE uses a humanist identity, deliberately separate from arcade typography. */
+.ops-hero h1 {
+  font-family: 'Trebuchet MS', Arial, sans-serif;
+  font-size: clamp(50px, 5.3vw, 80px);
+  font-weight: 600;
+  line-height: 1.02;
+  letter-spacing: -4px;
+}
+.ops-hero h1 > span {
+  color: #aab590;
+  font-size: 1.1em;
+  margin-top: 0;
+}
+.ops-name-dot {
+  color: #bf815d;
+}
+.map-annotation {
+  font-family: 'Trebuchet MS', Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 500;
+}
+.casefile-notes h3 {
+  font-family: 'Trebuchet MS', Arial, sans-serif;
+  font-size: 24px;
+  font-weight: 500;
+  letter-spacing: -0.5px;
+}
+.ops-hero .primary-link {
+  box-shadow: none;
+}
+.ops-hero .primary-link:hover {
+  box-shadow: none;
+}
+@media (max-width: 1100px) {
+  .ops-hero h1 {
+    font-size: clamp(43px, 5.5vw, 63px);
+    letter-spacing: -3px;
+  }
+}
+@media (max-width: 760px) {
+  .ops-hero h1 {
+    font-size: clamp(44px, 9vw, 66px);
+    letter-spacing: -2.7px;
+  }
+}
+@media (max-width: 380px) {
+  .ops-hero h1 {
+    font-size: 40px;
+    letter-spacing: -2.7px;
   }
 }

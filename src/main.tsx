@@ -4,6 +4,7 @@ import Portfolio from '@/components/portfolio';
 import '@/src/styles.css';
 import '@/src/editorial.css';
 import '@/src/operations.css';
+import '@/src/trace.css';
 
 createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
