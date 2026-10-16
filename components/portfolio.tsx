@@ -1,10 +1,9 @@
 'use client';
-import { useEffect, useState, type FormEvent } from 'react';
+import { useEffect, useState, type SubmitEvent } from 'react';
 import {
   ArrowUpRight,
   ArrowRight,
   ShieldCheck,
-  Globe,
   Network,
   ScanLine,
   FileText,
@@ -22,6 +21,7 @@ import {
   CheckCheck,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { EvidenceDesk } from '@/components/evidence-desk';
 import {
   Dialog,
   DialogContent,
@@ -103,7 +103,7 @@ export function Navbar() {
         <small>
           SECURITY
           <br />
-          PORTFOLIO
+          OPERATIONS
         </small>
       </a>
       <nav
@@ -145,106 +145,58 @@ export function Navbar() {
 
 export function Hero() {
   return (
-    <section id="home" className="hero wrap">
-      <div>
-        <span className="availability">
-          <i />
-          Available for Internships & Security Projects
-        </span>
-        <p className="eyebrow">OFFENSIVE SECURITY / DEFENSIVE THINKING</p>
+    <section id="home" className="hero wrap ops-hero">
+      <div className="ops-contours" aria-hidden="true">
+        <svg viewBox="0 0 1280 700" preserveAspectRatio="xMidYMid slice">
+          <path d="M690-50C580 150 1100 90 1000 340S490 590 850 790M740-50C630 150 1150 90 1050 340S540 590 900 790M790-50C680 150 1200 90 1100 340S590 590 950 790M840-50C730 150 1250 90 1150 340S640 590 1000 790M890-50C780 150 1300 90 1200 340S690 590 1050 790M940-50C830 150 1350 90 1250 340S740 590 1100 790" />
+        </svg>
+      </div>
+      <div className="hero-introduction">
+        <p className="hero-kicker">
+          <span aria-hidden="true" /> SECURITY OPERATIONS / PORTFOLIO
+        </p>
         <h1>
-          Abdelrahman
-          <br />
-          Ashraf<span className="cyan">.</span>
+          ABDELRAHMAN
+          <span>
+            ASHRAF<span className="ops-name-dot">.</span>
+          </span>
         </h1>
-        <h2>
-          Penetration Tester
-          <br />
-          <span>& Vulnerability Analyst</span>
-        </h2>
-        <p className="tagline">Finding vulnerabilities before attackers do.</p>
+        <div className="ops-role">
+          <span>FOCUS //</span>
+          <h2 className="hero-title">
+            Penetration Testing <span>& Vulnerability Analysis</span>
+          </h2>
+        </div>
         <p className="hero-copy">
-          I identify, validate, and document security vulnerabilities in web
-          applications and network environments, providing clear evidence and
-          actionable remediation recommendations.
+          Think like an attacker. Follow the evidence. I investigate web
+          applications and networks to turn potential weaknesses into clear,
+          actionable findings.
         </p>
         <div className="actions">
           <a className="primary-link" href="#projects">
-            View Security Projects <ArrowUpRight size={17} />
+            Explore the Lab <ArrowUpRight size={17} />
           </a>
-          <a className="secondary-link" href="./Abdelrahman_Ashraf_CV.pdf" download>
-            <Download size={14} />
-            Download Resume
-          </a>
-          <a className="text-link" href="#contact">
-            Contact Me <ArrowRight size={14} />
-          </a>
-        </div>
-        <p className="micro-copy">
-          One-page CV · PDF · Updated September 2026
-        </p>
-      </div>
-      <div className="security-visual">
-        <div className="visual-head">
-          <span>● ASSESSMENT WORKSPACE</span>
-          <span>LAB / 01</span>
-        </div>
-        <div
-          className="network-map"
-          role="img"
-          aria-label="Illustrative assessment workflow connecting web applications and networks to manual VAPT validation"
-        >
-          <div className="node source">
-            <Globe />
-            <span>WEB APPLICATION</span>
-          </div>
-          <div className="node core">
-            <ShieldCheck size={43} />
-            <span>VAPT</span>
-          </div>
-          <div className="node target">
-            <Network />
-            <span>NETWORK</span>
-          </div>
-          <div className="node validation">
-            <ScanLine />
-            <span>MANUAL VALIDATION</span>
-          </div>
-          <svg
-            viewBox="0 0 480 330"
-            preserveAspectRatio="none"
-            aria-hidden="true"
+          <a
+            className="secondary-link"
+            href="./Abdelrahman_Ashraf_CV.pdf"
+            download
           >
-            <path d="M95 85L240 155L385 85M240 155V270" />
-          </svg>
-          <span className="network-label">
-            ILLUSTRATIVE WORKFLOW / NO LIVE SCAN
-          </span>
+            <Download size={14} /> Download CV
+          </a>
         </div>
-        <div className="terminal">
-          <p>
-            ~/security-lab <span>— methodology</span>
-          </p>
-          <code>
-            <span className="cyan">$</span> assessment --approach structured
-            <br />
-            <span className="muted">
-              01 / Identify the attack surface
-              <br />
-              02 / Validate with reproducible evidence
-              <br />
-              03 / Prioritize actionable remediation
-            </span>
-            <br />
-            <span className="cyan">›</span> Authorized environments only{' '}
-            <span className="cursor" aria-hidden="true">
-              ▌
-            </span>
-          </code>
-        </div>
-        <div className="visual-footer">
-          <ShieldCheck size={13} /> Evidence first. Impact understood.
-        </div>
+        <span className="availability">
+          <i /> OPEN TO INTERNSHIPS & SECURITY PROJECTS
+        </span>
+      </div>
+      <EvidenceDesk />
+      <div className="ops-hero-footer">
+        <span>BASED IN CAIRO, EG</span>
+        <span>
+          WEB SECURITY <i>/</i> NETWORK VAPT <i>/</i> SECURITY REPORTING
+        </span>
+        <a href="#about">
+          SCROLL TO EXPLORE <ArrowRight size={13} />
+        </a>
       </div>
     </section>
   );
@@ -451,8 +403,7 @@ export function ProjectCard({
         <p>{project.description}</p>
         <div className="project-actions">
           <Button variant="ghost" className="text-button" onClick={onOpen}>
-            View Project{' '}
-            <ArrowUpRight size={15} />
+            View Project <ArrowUpRight size={15} />
           </Button>
           {project.report && (
             <Button
@@ -598,9 +549,7 @@ export function Training() {
         <div className="training-grid">
           {training.map((t) => (
             <article key={t.provider} className="training-card">
-              <div className="training-monogram">
-                {t.provider.charAt(0)}
-              </div>
+              <div className="training-monogram">{t.provider.charAt(0)}</div>
               <div>
                 <p>{t.provider}</p>
                 <h3>{t.title}</h3>
@@ -730,13 +679,20 @@ export function WhyWork() {
 const contactEmail = 'abdelrahman.a.moustfa@gmail.com';
 export function Contact() {
   const [message, setMessage] = useState('');
-  function submit(e: FormEvent<HTMLFormElement>) {
+  function submit(e: SubmitEvent<HTMLFormElement>) {
     e.preventDefault();
     const data = new FormData(e.currentTarget);
-    const name = String(data.get('Name') || 'Portfolio visitor');
+    const nameValue = data.get('Name');
+    const name =
+      typeof nameValue === 'string' && nameValue.trim()
+        ? nameValue.trim()
+        : 'Portfolio visitor';
     const subject = 'Security assessment inquiry from ' + name;
     const body = Array.from(data.entries())
-      .map(([key, value]) => key + ': ' + value)
+      .map(
+        ([key, value]) =>
+          key + ': ' + (typeof value === 'string' ? value : value.name),
+      )
       .join('\n');
     window.location.href =
       'mailto:' +
@@ -892,9 +848,9 @@ export function Contact() {
         <p className="micro-copy">
           Opens your email app · Review before sending
         </p>
-        <p role="status" className="form-status">
+        <output className="form-status" aria-live="polite">
           {message}
-        </p>
+        </output>
       </form>
     </section>
   );
@@ -1038,8 +994,8 @@ export default function Portfolio() {
                   <ShieldCheck />
                   <strong>Completed in authorized lab environments.</strong>
                   <p>
-                    Only high-level, sanitized details are published. Credentials
-                    and sensitive lab evidence remain private.
+                    Only high-level, sanitized details are published.
+                    Credentials and sensitive lab evidence remain private.
                   </p>
                 </div>
                 {project.report && (

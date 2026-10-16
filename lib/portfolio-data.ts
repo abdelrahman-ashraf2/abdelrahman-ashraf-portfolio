@@ -1,15 +1,5 @@
 import { Globe, Network, ScanLine, FileText } from 'lucide-react';
-export const navItems = [
-  'Home',
-  'About',
-  'Services',
-  'Skills',
-  'Projects',
-  'Experience',
-  'Training',
-  'Reports',
-  'Contact',
-];
+export const navItems = ['Home', 'About', 'Skills', 'Projects', 'Contact'];
 export const services = [
   {
     icon: Globe,

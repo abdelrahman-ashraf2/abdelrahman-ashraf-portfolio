@@ -19,6 +19,12 @@ npm run build
 
 The static output is generated in `dist/`.
 
+## Visual direction
+
+The Security Operations design uses charcoal, amber, and muted olive, with a self-hosted Barlow Condensed headline font. The hero's assessment map explains discovery, validation, and reporting through mouse and keyboard controls. It is an illustration of the workflow rather than a live scanner.
+
+The portfolio has no personal portrait. Case studies use horizontal case-file layouts, and motion respects the visitor's reduced-motion preference. The Barlow Condensed font license is included in `public/fonts/`.
+
 ## GitHub Pages
 
 Push to `main`. The workflow in `.github/workflows/pages.yml` builds the project and deploys `dist/` to GitHub Pages automatically.
