@@ -1,51 +1,38 @@
-'use client';
-import { useEffect, useState, type SubmitEvent } from 'react';
+import { useEffect, useRef, useState, type KeyboardEvent } from 'react';
 import {
-  ArrowUpRight,
+  ArrowDown,
   ArrowRight,
-  ShieldCheck,
-  Network,
-  ScanLine,
-  FileText,
-  Download,
-  Menu,
-  X,
+  ArrowUpRight,
+  BookOpen,
   Check,
-  Mail,
+  ChevronDown,
+  Code2,
+  Download,
   GitBranch,
-  ExternalLink,
-  LockKeyhole,
+  Link2,
+  Mail,
+  Menu,
+  Shield,
   Terminal,
-  Layers,
-  Search,
-  CheckCheck,
+  X,
 } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { TraceExperience } from '@/components/trace-experience';
 import { TraceJourney, TraceSectionBridge } from '@/components/trace-journey';
 import {
-  Dialog,
-  DialogContent,
-  DialogTitle,
-  DialogDescription,
-} from '@/components/ui/dialog';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import {
-  NativeSelect,
-  NativeSelectOption,
-} from '@/components/ui/native-select';
-import {
-  navItems,
-  services,
-  skillGroups,
-  methodology,
-  projects,
-  experience,
-  training,
-  reportSections,
-  reportCopy,
-} from '@/lib/portfolio-data';
+  learningJourney,
+  profile,
+  selectedWork,
+  toolkit,
+  writeups,
+} from '@/lib/identity-data';
+
+const navigation = [
+  ['about', 'About'],
+  ['projects', 'Projects'],
+  ['writeups', 'Writeups'],
+  ['toolkit', 'Toolkit'],
+  ['journey', 'Journey'],
+  ['contact', 'Contact'],
+] as const;
 
 function Heading({
   number,
@@ -59,983 +46,607 @@ function Heading({
   description?: string;
 }) {
   return (
-    <div className="section-heading">
+    <header className="section-heading">
       <p className="eyebrow">
-        {number} / {label}
+        <span>{number}</span> / {label}
       </p>
       <h2>{title}</h2>
       {description && <p className="section-intro">{description}</p>}
-    </div>
-  );
-}
-function Tags({ items }: { items: string[] }) {
-  return (
-    <div className="tags">
-      {items.map((t) => (
-        <span key={t}>{t}</span>
-      ))}
-    </div>
-  );
-}
-export function Navbar() {
-  const [open, setOpen] = useState(false),
-    [active, setActive] = useState('home');
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          if (entry.isIntersecting) setActive(entry.target.id);
-        }
-      },
-      { rootMargin: '-15% 0px -65% 0px', threshold: 0 },
-    );
-    document
-      .querySelectorAll('main section[id]')
-      .forEach((el) => observer.observe(el));
-    return () => observer.disconnect();
-  }, []);
-  return (
-    <header className="navbar">
-      <a className="skip-link" href="#main">
-        Skip to content
-      </a>
-      <a className="brand" href="#home" aria-label="Abdelrahman Ashraf home">
-        AA<span>.</span>
-        <small>
-          SECURITY
-          <br />
-          OPERATIONS
-        </small>
-      </a>
-      <nav
-        id="primary-navigation"
-        aria-label="Main navigation"
-        className={open ? 'is-open' : ''}
-      >
-        {navItems.map((item) => (
-          <a
-            key={item}
-            href={'#' + item.toLowerCase()}
-            onClick={() => setOpen(false)}
-            className={active === item.toLowerCase() ? 'active' : ''}
-            aria-current={
-              active === item.toLowerCase() ? 'location' : undefined
-            }
-          >
-            {item}
-          </a>
-        ))}
-      </nav>
-      <a className="nav-cta" href="#contact">
-        Let’s Work Together <ArrowUpRight size={15} />
-      </a>
-      <Button
-        variant="ghost"
-        size="icon"
-        className="menu-toggle"
-        aria-label={open ? 'Close navigation' : 'Open navigation'}
-        aria-expanded={open}
-        aria-controls="primary-navigation"
-        onClick={() => setOpen(!open)}
-      >
-        {open ? <X /> : <Menu />}
-      </Button>
     </header>
   );
 }
 
-export function Hero() {
+function Navbar() {
+  const [open, setOpen] = useState(false);
+  const toggle = useRef<HTMLButtonElement>(null);
+  useEffect(() => {
+    const escape = (event: globalThis.KeyboardEvent) => {
+      if (event.key === 'Escape' && open) {
+        setOpen(false);
+        toggle.current?.focus();
+      }
+    };
+    const wider = window.matchMedia('(min-width: 761px)');
+    const resize = () => {
+      if (wider.matches) setOpen(false);
+    };
+    document.addEventListener('keydown', escape);
+    wider.addEventListener('change', resize);
+    return () => {
+      document.removeEventListener('keydown', escape);
+      wider.removeEventListener('change', resize);
+    };
+  }, [open]);
   return (
-    <section id="home" className="hero wrap ops-hero">
-      <div className="ops-contours" aria-hidden="true">
-        <svg viewBox="0 0 1280 700" preserveAspectRatio="xMidYMid slice">
-          <path d="M690-50C580 150 1100 90 1000 340S490 590 850 790M740-50C630 150 1150 90 1050 340S540 590 900 790M790-50C680 150 1200 90 1100 340S590 590 950 790M840-50C730 150 1250 90 1150 340S640 590 1000 790M890-50C780 150 1300 90 1200 340S690 590 1050 790M940-50C830 150 1350 90 1250 340S740 590 1100 790" />
-        </svg>
-      </div>
-      <div className="hero-introduction">
-        <p className="hero-kicker">
-          <span aria-hidden="true" /> TRACE / A SECURITY PORTFOLIO
-        </p>
-        <h1>
-          Abdelrahman
-          <span>
-            Ashraf<span className="ops-name-dot">.</span>
-          </span>
-        </h1>
-        <div className="ops-role">
-          <span>FOCUS //</span>
-          <h2 className="hero-title">
-            Penetration Testing <span>& Vulnerability Analysis</span>
-          </h2>
-        </div>
-        <p className="hero-copy">
-          Think like an attacker. Follow the evidence. I investigate web
-          applications and networks to turn potential weaknesses into clear,
-          actionable findings.
-        </p>
-        <div className="actions">
-          <a className="primary-link" href="#projects">
-            Explore the Lab <ArrowUpRight size={17} />
-          </a>
-          <a
-            className="secondary-link"
-            href="./Abdelrahman_Ashraf_CV.pdf"
-            download
-          >
-            <Download size={14} /> Download CV
-          </a>
-        </div>
-        <span className="availability">
-          <i /> OPEN TO INTERNSHIPS & SECURITY PROJECTS
-        </span>
-      </div>
-      <TraceExperience />
-      <div className="ops-hero-footer">
-        <span>BASED IN CAIRO, EG</span>
-        <span>
-          WEB SECURITY <i>/</i> NETWORK VAPT <i>/</i> SECURITY REPORTING
-        </span>
-        <a href="#about">
-          SCROLL TO EXPLORE <ArrowRight size={13} />
+    <header className="identity-header">
+      <div className="identity-wrap">
+        <a
+          className="identity-mark"
+          href="#home"
+          onClick={() => setOpen(false)}
+          aria-label="Abdelrahman Ashraf, home"
+        >
+          AA<span>/ security</span>
         </a>
-      </div>
-    </section>
-  );
-}
-export function About() {
-  return (
-    <section id="about" className="section wrap about-grid">
-      <Heading
-        number="01"
-        label="ABOUT ME"
-        title="Curiosity. Discipline. Clear evidence."
-      />
-      <div>
-        <p className="body-large">
-          I’m Abdelrahman, a junior penetration tester and vulnerability analyst
-          building my career in offensive security through hands-on training and
-          practical security labs.
-        </p>
-        <p className="body-copy">
-          I’m pursuing a B.Eng. in Cyber Security and Data Analysis at Menoufia
-          University’s Faculty of Electronic Engineering (2023–2028).
-        </p>
-        <p className="body-copy">
-          My experience spans network penetration testing, web application
-          security, vulnerability assessment, Linux/Windows privilege
-          escalation, security monitoring, and technical security reporting.
-        </p>
-        <p className="body-copy">
-          My focus extends beyond finding a potential issue: I work to validate
-          it, understand its impact, document reproducible evidence, and
-          recommend practical remediation.
-        </p>
-        <div className="focus-cards">
-          <div>
-            <ScanLine />
-            <strong>VAPT Focus</strong>
-            <span>Structured assessment</span>
-          </div>
-          <div>
-            <Network />
-            <strong>Web + Network</strong>
-            <span>Connected security thinking</span>
-          </div>
-          <div>
-            <Terminal />
-            <strong>Hands-On Labs</strong>
-            <span>Authorized environments</span>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-export function Services() {
-  return (
-    <div className="section-band">
-      <section id="services" className="section wrap">
-        <Heading
-          number="02"
-          label="SECURITY SERVICES"
-          title="A clearer view of your security."
-          description="Focused assessments for startups, small and medium businesses, SaaS teams, web agencies, and organizations securing their applications and networks."
-        />
-        <div className="service-grid">
-          {services.map((s, i) => (
-            <article className="service-card" key={s.title}>
-              <div className="card-top">
-                <s.icon size={24} />
-                <span>0{i + 1}</span>
-              </div>
-              <h3>{s.title}</h3>
-              <p>{s.description}</p>
-              <ul>
-                {s.tags.map((t) => (
-                  <li key={t}>
-                    <Check size={12} />
-                    {t}
-                  </li>
-                ))}
-              </ul>
-            </article>
+        <button
+          className="identity-menu"
+          type="button"
+          ref={toggle}
+          aria-label={open ? 'Close navigation' : 'Open navigation'}
+          aria-expanded={open}
+          aria-controls="identity-navigation"
+          onClick={() => setOpen(!open)}
+        >
+          {open ? <X size={20} /> : <Menu size={20} />}
+        </button>
+        <nav
+          id="identity-navigation"
+          className={`identity-nav${open ? ' is-open' : ''}`}
+          aria-label="Main navigation"
+        >
+          {navigation.map(([id, label]) => (
+            <a key={id} href={`#${id}`} onClick={() => setOpen(false)}>
+              {label}
+            </a>
           ))}
-        </div>
-      </section>
-    </div>
+          <a href={profile.cv} download className="nav-cv">
+            CV <Download size={13} />
+          </a>
+        </nav>
+      </div>
+    </header>
   );
 }
-export function Skills() {
+
+function LabConsole() {
+  const [tab, setTab] = useState(0);
+  const tabs = ['profile.json', 'crypto_lab.py', 'workflow.md'];
+  const buttons = useRef<(HTMLButtonElement | null)[]>([]);
+  const navigate = (event: KeyboardEvent<HTMLButtonElement>, index: number) => {
+    let next = index;
+    if (event.key === 'ArrowRight') next = (index + 1) % tabs.length;
+    else if (event.key === 'ArrowLeft')
+      next = (index + tabs.length - 1) % tabs.length;
+    else if (event.key === 'Home') next = 0;
+    else if (event.key === 'End') next = tabs.length - 1;
+    else return;
+    event.preventDefault();
+    setTab(next);
+    buttons.current[next]?.focus();
+  };
   return (
-    <section id="skills" className="section wrap">
-      <Heading
-        number="03"
-        label="TECHNICAL TOOLKIT"
-        title="The tools behind the process."
-        description="Practical skills developed through training, investigation, and controlled security labs."
-      />
-      <div className="skills-grid">
-        {skillGroups.map((g, i) => (
-          <article className="skill-group" key={g.title}>
-            <div className="skill-heading">
-              <span>0{i + 1}</span>
-              <h3>{g.title}</h3>
-            </div>
-            <Tags items={g.items} />
-          </article>
+    <div className="hero-console">
+      <div className="console-top">
+        <div aria-hidden="true">
+          <i />
+          <i />
+          <i />
+        </div>
+        <span>~/abdelrahman / lab-notes</span>
+        <Terminal size={14} />
+      </div>
+      <div
+        className="console-tabs"
+        role="tablist"
+        aria-label="Explore my lab notes"
+      >
+        {tabs.map((label, index) => (
+          <button
+            key={label}
+            id={`console-tab-${index}`}
+            role="tab"
+            type="button"
+            aria-selected={tab === index}
+            aria-controls="console-panel"
+            tabIndex={tab === index ? 0 : -1}
+            ref={(element) => {
+              buttons.current[index] = element;
+            }}
+            onKeyDown={(event) => navigate(event, index)}
+            onClick={() => setTab(index)}
+          >
+            {label}
+          </button>
         ))}
       </div>
-    </section>
-  );
-}
-export function Methodology() {
-  return (
-    <section id="methodology" className="methodology-section">
-      <div className="wrap section">
-        <Heading
-          number="04"
-          label="SECURITY METHODOLOGY"
-          title="A process, not just a scan."
-          description="Structured testing connects discovery to verified impact and practical fixes. Exploitation and privilege escalation are performed only when explicitly authorized and in scope."
-        />
-        <ol className="methodology">
-          {methodology.map((m, i) => (
-            <li key={m}>
-              <span>{String(i + 1).padStart(2, '0')}</span>
-              <strong>{m}</strong>
-              {i < 8 && <ArrowRight size={13} aria-hidden="true" />}
-            </li>
-          ))}
-        </ol>
-        <p className="method-note">
-          <LockKeyhole size={13} /> Every engagement starts with agreed scope,
-          written authorization, and rules of engagement.
+      <div
+        className="console-body"
+        role="tabpanel"
+        tabIndex={0}
+        id="console-panel"
+        aria-labelledby={`console-tab-${tab}`}
+      >
+        <p className="console-prompt">
+          <span>$</span>{' '}
+          <code>
+            {
+              [
+                'cat profile.json',
+                'open applied-cryptography-lab',
+                'cat workflow.md',
+              ][tab]
+            }
+          </code>
         </p>
-      </div>
-    </section>
-  );
-}
-type Project = (typeof projects)[number];
-export function ProjectCard({
-  project,
-  onOpen,
-  onReport,
-}: {
-  project: Project;
-  onOpen: () => void;
-  onReport: () => void;
-}) {
-  return (
-    <article className="project-card">
-      <div className="project-art">
-        <div className="project-meta">
-          <span>LAB PROJECT / {project.id}</span>
-          <project.icon size={19} />
-        </div>
-        {project.id === '01' ? (
-          <div className="web-diagram">
-            <div>
-              <Network size={17} /> Project Ban-Win7 <span>COMPLETED</span>
+        <div className="console-content">
+          {tab === 0 && (
+            <div className="console-profile">
+              <span className="console-brace">{'{'}</span>
+              <dl>
+                <div>
+                  <dt>name</dt>
+                  <dd>Abdelrahman Ashraf</dd>
+                </div>
+                <div>
+                  <dt>focus</dt>
+                  <dd>Web & network security</dd>
+                </div>
+                <div>
+                  <dt>track</dt>
+                  <dd>VAPT trainee @ DEPI</dd>
+                </div>
+                <div>
+                  <dt>build</dt>
+                  <dd>Python security projects</dd>
+                </div>
+                <div>
+                  <dt>approach</dt>
+                  <dd>Understand. Test. Document.</dd>
+                </div>
+              </dl>
+              <span className="console-brace">{'}'}</span>
             </div>
-            <p>
-              5 documented findings <span>→</span> 5-page report
-            </p>
-            <p>
-              Evidence <span>→</span> Impact <span>→</span> Remediation
-            </p>
-            <small>CONTROLLED WINDOWS 7 LAB</small>
-          </div>
-        ) : project.id === '02' ? (
-          <div className="attack-path">
-            {project.workflow.map((w, i) => (
-              <span key={w}>
-                {w}
-                {i < 5 && <ArrowRight size={11} />}
-              </span>
-            ))}
-          </div>
-        ) : (
-          <div className="assessment-diagram">
-            <div>
-              <ScanLine />
-              <span>HTTP request</span>
+          )}
+          {tab === 1 && (
+            <div className="console-project">
+              <p className="console-comment">
+                # From information-security coursework
+              </p>
+              <ul>
+                <li>
+                  <Check size={13} /> Feistel encryption rounds
+                </li>
+                <li>
+                  <Check size={13} /> Diffie–Hellman & MITM
+                </li>
+                <li>
+                  <Check size={13} /> AES modes · bring your own image
+                </li>
+                <li>
+                  <Check size={13} /> DSA signatures & tampering
+                </li>
+              </ul>
+              <a
+                href={selectedWork[0].repository!}
+                target="_blank"
+                rel="noreferrer"
+              >
+                Read the source <ArrowUpRight size={13} />
+              </a>
             </div>
-            <ArrowRight />
-            <div>
-              <Search />
-              <span>Manual validation</span>
+          )}
+          {tab === 2 && (
+            <div className="console-workflow">
+              <p>
+                <span>01</span> Understand the system and the scope.
+              </p>
+              <p>
+                <span>02</span> Test a specific assumption.
+              </p>
+              <p>
+                <span>03</span> Validate and reproduce the behavior.
+              </p>
+              <p>
+                <span>04</span> Document the evidence and the fix.
+              </p>
+              <p className="console-comment">
+                # Practice stays inside authorized labs.
+              </p>
             </div>
-            <ArrowRight />
-            <div>
-              <FileText />
-              <span>Evidence</span>
-            </div>
-          </div>
-        )}
-        <div className="project-art-bottom">
-          <span>{project.category}</span>
-          <span>COMPLETED LAB</span>
-        </div>
-      </div>
-      <div className="project-content">
-        <span className="status-pill">Completed Lab Project</span>
-        <p className="project-type">{project.type}</p>
-        <h3>{project.title}</h3>
-        <p>{project.description}</p>
-        <div className="project-actions">
-          <Button variant="ghost" className="text-button" onClick={onOpen}>
-            View Project <ArrowUpRight size={15} />
-          </Button>
-          {project.report && (
-            <Button
-              variant="ghost"
-              className="text-button secondary"
-              onClick={onReport}
-            >
-              View Sample Report <FileText size={14} />
-            </Button>
           )}
         </div>
       </div>
-    </article>
-  );
-}
-export function Projects({
-  onProject,
-  onReport,
-}: {
-  onProject: (project: Project) => void;
-  onReport: () => void;
-}) {
-  return (
-    <section id="projects" className="section wrap">
-      <div className="section-title-row">
-        <Heading
-          number="05"
-          label="PROJECTS & CASE STUDIES"
-          title="From methodology to evidence."
-          description="Completed, authorized lab work covering internal penetration testing, vulnerable machines, web security practice, evidence collection, and technical reporting."
-        />
-        <span className="outline-label">
-          <ShieldCheck size={13} /> AUTHORIZED LABS ONLY
-        </span>
-      </div>
-      <div className="projects-grid">
-        {projects.map((p) => (
-          <ProjectCard
-            key={p.id}
-            project={p}
-            onOpen={() => onProject(p)}
-            onReport={onReport}
-          />
-        ))}
-      </div>
-    </section>
-  );
-}
-export function FindingCard() {
-  return (
-    <article className="finding-card">
-      <div className="finding-top">
-        <span>FINDING TEMPLATE / WEB-001</span>
-        <span className="severity high">HIGH · EXAMPLE</span>
-      </div>
-      <h3>Broken Access Control</h3>
-      <div className="finding-status">
+      <div className="console-footer">
         <span>
-          Status: <strong>Placeholder — not validated</strong>
+          <i /> PERSONAL LAB / READ-ONLY PREVIEW
         </span>
-        <span>Affected asset: Placeholder Lab Application</span>
+        <span>SELECT A FILE ↑</span>
       </div>
-      <p className="template-warning">
-        Illustrative report component. Severity and finding title are examples,
-        not a claim of a discovered vulnerability.
-      </p>
-      <dl>
-        {[
-          [
-            'Description',
-            'Placeholder: describe the observed access-control weakness after authorized lab validation.',
-          ],
-          [
-            'Evidence',
-            'No evidence added. Include sanitized requests, responses, screenshots, and reproducible steps.',
-          ],
-          [
-            'Impact',
-            'Placeholder: document demonstrated access and the resulting security or business impact.',
-          ],
-          [
-            'Remediation',
-            'Placeholder: specify server-side authorization checks and verification steps appropriate to the actual finding.',
-          ],
-          [
-            'CVSS / CWE / CVE',
-            'Not assigned. Add only when applicable and supported.',
-          ],
-          ['Retest status', 'Not performed.'],
-        ].map(([k, v]) => (
-          <div key={k}>
-            <dt>{k}</dt>
-            <dd>{v}</dd>
-          </div>
-        ))}
-      </dl>
-      <div className="severity-key" aria-label="Severity style examples">
-        {['Critical', 'High', 'Medium', 'Low', 'Informational'].map((s) => (
-          <span key={s} className={'severity ' + s.toLowerCase()}>
-            {s}
-          </span>
-        ))}
-      </div>
-    </article>
-  );
-}
-export function ExperienceTimeline() {
-  return (
-    <section id="experience" className="section wrap experience-grid">
-      <Heading
-        number="06"
-        label="EXPERIENCE"
-        title="Learning through practice."
-        description="A foundation in security monitoring, growing into offensive security and vulnerability assessment."
-      />
-      <div className="experience-timeline">
-        {experience.map((e) => (
-          <article key={e.org} className="experience-item">
-            <p className="date-label">{e.date}</p>
-            <h3>{e.title}</h3>
-            <p className="org">
-              {e.org} <span>/ {e.role}</span>
-            </p>
-            <p className="body-copy">{e.description}</p>
-            <Tags items={e.items} />
-            {e.note && <p className="micro-copy">{e.note}</p>}
-          </article>
-        ))}
-      </div>
-    </section>
-  );
-}
-export function Training() {
-  return (
-    <div className="section-band">
-      <section id="training" className="section wrap">
-        <Heading
-          number="07"
-          label="TRAINING & CERTIFICATIONS"
-          title="Always building the foundation."
-          description="Current training and completed foundational cybersecurity certifications."
-        />
-        <div className="training-grid">
-          {training.map((t) => (
-            <article key={t.provider} className="training-card">
-              <div className="training-monogram">{t.provider.charAt(0)}</div>
-              <div>
-                <p>{t.provider}</p>
-                <h3>{t.title}</h3>
-              </div>
-              <span className="status-pill">{t.status}</span>
-            </article>
-          ))}
-        </div>
-      </section>
     </div>
   );
 }
-export function ReportPreview({ onReport }: { onReport: () => void }) {
+
+function Hero() {
   return (
-    <section id="reports" className="section wrap report-section">
-      <div>
-        <Heading
-          number="08"
-          label="REPORTING & DELIVERABLES"
-          title="Sample Penetration Testing Report"
-        />
-        <p className="body-copy">
-          A professional security assessment is more than a list of scanner
-          results. Findings are validated, documented, prioritized, and
-          translated into actionable remediation recommendations.
+    <section id="home" className="identity-hero identity-wrap">
+      <div className="hero-intro">
+        <p className="eyebrow">
+          <span className="status-dot" /> CYBERSECURITY / PERSONAL LAB
         </p>
-        <div className="report-points">
-          <p>
-            <CheckCheck /> Executive clarity. Technical depth.
-          </p>
-          <p>
-            <CheckCheck /> Evidence-backed, reproducible findings.
-          </p>
-          <p>
-            <CheckCheck /> Prioritized remediation and retesting.
-          </p>
+        <h1>
+          <span>Abdelrahman</span>
+          <span>
+            Ashraf
+            <span className="name-cursor" aria-hidden="true">
+              _
+            </span>
+          </span>
+        </h1>
+        <p className="hero-role">
+          Penetration testing.
+          <br />
+          <span>Python security projects.</span>
+        </p>
+        <p className="hero-summary">
+          Cybersecurity student and VAPT trainee. I work through web and network
+          labs, build Python security projects, and document what I can
+          reproduce.
+        </p>
+        <div className="hero-actions">
+          <a className="primary-action" href="#projects">
+            Explore my work <ArrowDown size={16} />
+          </a>
+          <a className="secondary-action" href={profile.cv} download>
+            <Download size={15} /> Download CV
+          </a>
         </div>
-        <Button className="large-button" onClick={onReport}>
-          View Sample Report <ArrowUpRight />
-        </Button>
-        <p className="micro-copy">
-          Illustrative template · Placeholder data · No client information
-        </p>
+        <div className="hero-facts">
+          <span>
+            <Shield size={13} /> VAPT trainee · DEPI
+          </span>
+          <span>
+            <Code2 size={13} /> Cyber Security & Data Analysis
+          </span>
+        </div>
       </div>
-      <button
-        className="report-cover"
-        onClick={onReport}
-        aria-label="Open sample penetration testing report"
-      >
-        <div className="report-cover-header">
-          <span>
-            AA<span className="cyan">.</span>
-          </span>
-          <span>
-            SECURITY ASSESSMENT
-            <br />
-            SAMPLE / 001
-          </span>
-        </div>
-        <p className="eyebrow">ILLUSTRATIVE REPORT TEMPLATE</p>
-        <h3>
-          Penetration
-          <br />
-          Testing Report<span className="cyan">.</span>
-        </h3>
-        <p>
-          From technical findings
-          <br />
-          to actionable recommendations.
-        </p>
-        <div className="report-cover-line" />
-        <div className="report-cover-toc">
-          {reportSections.slice(0, 4).map((s, i) => (
-            <div key={s}>
-              <span>0{i + 1}</span>
-              {s}
-              <span>—</span>
-            </div>
-          ))}
-        </div>
-        <div className="report-cover-footer">
-          <span>AUTHORIZED LAB ENVIRONMENT</span>
-          <ArrowUpRight size={17} />
-        </div>
-      </button>
+      <LabConsole />
+      <p className="hero-bottom">
+        <span>CURIOUS BY NATURE. METHODICAL IN PRACTICE.</span>
+        <a href="#about">
+          Inside the lab <ArrowDown size={13} />
+        </a>
+      </p>
     </section>
   );
 }
-export function WhyWork() {
+
+function About() {
   return (
-    <section className="wrap why-section">
-      <p className="eyebrow">WHY WORK WITH ME</p>
-      <h2>Thoughtful testing. Useful outcomes.</h2>
-      <div className="why-grid">
-        {[
-          [
-            Layers,
-            'Structured Testing',
-            'Testing follows a clear VAPT methodology.',
-          ],
-          [
-            ScanLine,
-            'Manual Validation',
-            'Important findings are investigated instead of blindly trusting automated scanner output.',
-          ],
-          [
-            Search,
-            'Clear Evidence',
-            'Security issues are documented with reproducible technical evidence.',
-          ],
-          [
-            FileText,
-            'Actionable Reporting',
-            'Findings include practical remediation recommendations.',
-          ],
-        ].map(([Icon, title, description]) => (
-          <article key={String(title)}>
-            {typeof Icon !== 'string' && <Icon size={21} />}
-            <h3>{String(title)}</h3>
-            <p>{String(description)}</p>
+    <section id="about" className="identity-section identity-wrap">
+      <Heading
+        number="01"
+        label="THE PERSON BEHIND THE LAB"
+        title="My work starts with understanding."
+      />
+      <div className="about-layout">
+        <p className="about-lead">
+          I’m Abdelrahman—a cybersecurity student building a practical
+          foundation in offensive security.
+        </p>
+        <div className="about-detail">
+          <p>
+            I study Cyber Security and Data Analysis at Menoufia University.
+            Alongside my degree, I train in vulnerability analysis and
+            penetration testing through DEPI and Instant.
+          </p>
+          <p>
+            My SOC internship gave me experience investigating alerts and
+            endpoint activity. Now I’m bringing that perspective to web and
+            network testing, Python projects, and clear technical notes.
+          </p>
+          <p className="education-line">
+            <span>EDUCATION</span>B.Eng. · Faculty of Electronic Engineering
+            <br />
+            Menoufia University · 2023–2028
+          </p>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Projects() {
+  const [expanded, setExpanded] = useState<string | null>(null);
+  return (
+    <section id="projects" className="identity-section identity-wrap">
+      <Heading
+        number="02"
+        label="SELECTED WORK"
+        title="Code. Labs. Evidence."
+        description="A project you can run, and the practical training behind my testing workflow."
+      />
+      <div className="case-list">
+        {selectedWork.map((project, index) => (
+          <article
+            className={`case-card${index === 0 ? ' case-featured' : ''}`}
+            key={project.id}
+          >
+            <span className="case-index" aria-hidden="true">
+              {project.number}
+            </span>
+            <div className="case-content">
+              <p className="case-meta">
+                <span>{project.category}</span>
+                {index === 0 && (
+                  <span className="code-available">SOURCE AVAILABLE</span>
+                )}
+              </p>
+              <div className="case-title-row">
+                <h3>{project.title}</h3>
+                {index === 0 ? <Code2 size={22} /> : <Shield size={22} />}
+              </div>
+              <p className="case-description">{project.description}</p>
+              <div className="case-tags">
+                {project.tags.map((tag) => (
+                  <span key={tag}>{tag}</span>
+                ))}
+              </div>
+              <div className="case-links">
+                {project.repository && (
+                  <a href={project.repository} target="_blank" rel="noreferrer">
+                    <GitBranch size={15} /> View repository{' '}
+                    <ArrowUpRight size={13} />
+                  </a>
+                )}
+                <button
+                  className="case-toggle"
+                  type="button"
+                  aria-expanded={expanded === project.id}
+                  aria-controls={`details-${project.id}`}
+                  onClick={() =>
+                    setExpanded(expanded === project.id ? null : project.id)
+                  }
+                >
+                  {expanded === project.id
+                    ? 'Close notes'
+                    : 'Read project notes'}
+                  <ChevronDown size={14} />
+                </button>
+              </div>
+              <div
+                className="project-details"
+                id={`details-${project.id}`}
+                hidden={expanded !== project.id}
+              >
+                <dl>
+                  {project.details.map(([title, copy]) => (
+                    <div key={title}>
+                      <dt>{title}</dt>
+                      <dd>{copy}</dd>
+                    </div>
+                  ))}
+                </dl>
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+      <p className="timeline-note">
+        Testing practice is limited to authorized, intentionally vulnerable
+        environments.
+      </p>
+    </section>
+  );
+}
+
+function Writeups() {
+  return (
+    <section id="writeups" className="identity-section identity-wrap">
+      <Heading
+        number="03"
+        label="FIELD NOTES / WRITEUPS"
+        title="The reasoning behind the result."
+        description="A place for lab walkthroughs, security notes, and lessons worth keeping."
+      />
+      {writeups.length ? (
+        <div className="writeup-list">
+          {writeups.map((entry) => (
+            <article className="writeup-card" key={entry.href}>
+              <p className="eyebrow">
+                {entry.category} / {entry.date}
+              </p>
+              <h3>
+                <a href={entry.href}>
+                  {entry.title}
+                  <ArrowUpRight size={17} />
+                </a>
+              </h3>
+              <p>{entry.summary}</p>
+            </article>
+          ))}
+        </div>
+      ) : (
+        <div className="writeups-empty">
+          <div className="writeups-icon" aria-hidden="true">
+            <BookOpen size={30} />
+            <span>~/writeups</span>
+          </div>
+          <div>
+            <p className="eyebrow">DIRECTORY INITIALIZED</p>
+            <h3>No writeups published yet.</h3>
+            <p>
+              I’m preparing this space for future walkthroughs and technical
+              notes. New entries will appear here as I publish them.
+            </p>
+            <div className="writeup-topics" aria-label="Planned topics">
+              <span>Machine walkthroughs</span>
+              <span>Web security</span>
+              <span>Python & cryptography</span>
+            </div>
+          </div>
+        </div>
+      )}
+    </section>
+  );
+}
+
+function Toolkit() {
+  return (
+    <section id="toolkit" className="identity-section identity-wrap">
+      <Heading
+        number="04"
+        label="TOOLKIT"
+        title="Tools I use. Foundations I’m building."
+        description="A working toolkit, not a list of everything in cybersecurity."
+      />
+      <div className="tool-grid">
+        {toolkit.map((group, index) => (
+          <article className="tool-group" key={group.title}>
+            <span className="tool-number">0{index + 1}</span>
+            <h3>{group.title}</h3>
+            <p>{group.description}</p>
+            <div className="tool-tags">
+              {group.tools.map((tool) => (
+                <span key={tool}>{tool}</span>
+              ))}
+            </div>
           </article>
         ))}
       </div>
     </section>
   );
 }
-const contactEmail = 'abdelrahman.a.moustfa@gmail.com';
-export function Contact() {
-  const [message, setMessage] = useState('');
-  function submit(e: SubmitEvent<HTMLFormElement>) {
-    e.preventDefault();
-    const data = new FormData(e.currentTarget);
-    const nameValue = data.get('Name');
-    const name =
-      typeof nameValue === 'string' && nameValue.trim()
-        ? nameValue.trim()
-        : 'Portfolio visitor';
-    const subject = 'Security assessment inquiry from ' + name;
-    const body = Array.from(data.entries())
-      .map(
-        ([key, value]) =>
-          key + ': ' + (typeof value === 'string' ? value : value.name),
-      )
-      .join('\n');
-    window.location.href =
-      'mailto:' +
-      contactEmail +
-      '?subject=' +
-      encodeURIComponent(subject) +
-      '&body=' +
-      encodeURIComponent(body);
-    setMessage(
-      'Your email app should open with the inquiry prepared. Review it before sending.',
-    );
-  }
+
+function Journey() {
   return (
-    <section id="contact" className="section wrap contact-grid">
-      <div>
-        <Heading
-          number="09"
-          label="LET’S WORK TOGETHER"
-          title="Let’s Secure Your Systems"
-        />
-        <p className="body-copy">
-          Need a security assessment for your web application or network
-          environment? Let’s discuss the scope and security requirements.
-        </p>
-        <span className="availability">
-          <i />
-          Available for internships & authorized projects
-        </span>
-        <div className="contact-links">
-          {[
-            {
-              Icon: Mail,
-              label: 'Email',
-              value: contactEmail,
-              href: 'mailto:' + contactEmail,
-            },
-            {
-              Icon: ExternalLink,
-              label: 'LinkedIn',
-              value: 'abdelrahman-ashraf1',
-              href: 'https://www.linkedin.com/in/abdelrahman-ashraf1/',
-            },
-            {
-              Icon: GitBranch,
-              label: 'GitHub',
-              value: 'abdelrahman-ashraf2',
-              href: 'https://github.com/abdelrahman-ashraf2',
-            },
-          ].map(({ Icon, label, value, href }) => (
-            <a
-              key={label}
-              href={href}
-              target={href.startsWith('http') ? '_blank' : undefined}
-              rel={href.startsWith('http') ? 'noreferrer' : undefined}
-            >
-              <Icon size={18} />
-              <span>{label}</span>
-              <small>{value}</small>
-            </a>
+    <section id="journey" className="identity-section identity-wrap">
+      <Heading
+        number="05"
+        label="EXPERIENCE & LEARNING"
+        title="Building the foundation, in practice."
+      />
+      <div className="journey-layout">
+        <div className="timeline-list">
+          {learningJourney.map((item) => (
+            <article className="timeline-item" key={item.org}>
+              <p className="timeline-date">{item.date}</p>
+              <div>
+                <h3>{item.title}</h3>
+                <p className="timeline-org">{item.org}</p>
+                <p>{item.description}</p>
+              </div>
+            </article>
           ))}
         </div>
-        <p className="micro-copy">
-          Based in Cairo, Egypt · Available for internships and authorized
-          security projects.
-        </p>
+        <aside className="learning-panel">
+          <p className="eyebrow">CONTINUING TO LEARN</p>
+          <h3>From fundamentals to practical testing.</h3>
+          <ul>
+            <li>
+              <span>Active Directory</span>Domain architecture and enumeration
+              fundamentals.
+            </li>
+            <li>
+              <span>Web application security</span>Authentication, access
+              control, and manual validation.
+            </li>
+            <li>
+              <span>Foundational coursework</span>Cybersecurity for Beginners ·
+              Mahara-Tech.
+            </li>
+          </ul>
+        </aside>
       </div>
-      <form onSubmit={submit} className="contact-form">
-        <div className="form-notice">
-          <FileText size={17} />
-          <p>
-            <strong>Prepare an assessment inquiry</strong>
-            <br />
-            Submitting opens your email app with a prepared message. Nothing is
-            sent until you review and send it.
-          </p>
-        </div>
-        <div className="form-row">
-          <label htmlFor="name">
-            Name <span>*</span>
-            <Input
-              id="name"
-              name="Name"
-              placeholder="Your name"
-              autoComplete="name"
-              required
-              maxLength={100}
-            />
-          </label>
-          <label htmlFor="email">
-            Email <span>*</span>
-            <Input
-              id="email"
-              name="Email"
-              type="email"
-              placeholder="you@company.com"
-              autoComplete="email"
-              required
-              maxLength={254}
-            />
-          </label>
-        </div>
-        <div className="form-row">
-          <label htmlFor="company">
-            Company <small>(optional)</small>
-            <Input
-              id="company"
-              name="Company"
-              placeholder="Company name"
-              autoComplete="organization"
-              maxLength={150}
-            />
-          </label>
-          <label htmlFor="service">
-            Service Needed <span>*</span>
-            <NativeSelect
-              id="service"
-              name="Service Needed"
-              required
-              defaultValue=""
-            >
-              <NativeSelectOption value="" disabled>
-                Select a service
-              </NativeSelectOption>
-              {[
-                'Web Application Security Assessment',
-                'Network Vulnerability Assessment',
-                'Vulnerability Assessment',
-                'Security Reporting',
-                'Other',
-              ].map((s) => (
-                <NativeSelectOption value={s} key={s}>
-                  {s}
-                </NativeSelectOption>
-              ))}
-            </NativeSelect>
-          </label>
-        </div>
-        <label htmlFor="details">
-          Project Details <span>*</span>
-          <Textarea
-            id="details"
-            name="Project Details"
-            placeholder="Tell me about your application or network, goals, timeline, and assessment scope. Please do not include credentials or sensitive information."
-            required
-            minLength={20}
-            maxLength={5000}
-            rows={5}
-          />
-        </label>
-        <Button type="submit" className="large-button form-submit">
-          Prepare Email Inquiry <ArrowUpRight />
-        </Button>
-        <p className="micro-copy">
-          Opens your email app · Review before sending
-        </p>
-        <output className="form-status" aria-live="polite">
-          {message}
-        </output>
-      </form>
     </section>
   );
 }
-export function Footer() {
+
+function Contact() {
   return (
-    <footer>
-      <div className="wrap">
-        <div className="footer-top">
-          <div>
-            <a className="brand" href="#home">
-              AA<span>.</span>
-            </a>
-            <strong>Abdelrahman Ashraf</strong>
-            <p>Penetration Tester & Vulnerability Analyst</p>
-          </div>
-          <nav aria-label="Footer navigation">
-            {['Home', 'Services', 'Projects', 'Reports', 'Contact'].map((n) => (
-              <a href={'#' + n.toLowerCase()} key={n}>
-                {n}
-              </a>
-            ))}
-          </nav>
-          <div className="footer-social">
-            <a href={'mailto:' + contactEmail}>Email</a>
-            <a
-              href="https://www.linkedin.com/in/abdelrahman-ashraf1/"
-              target="_blank"
-              rel="noreferrer"
-            >
-              LinkedIn
-            </a>
-            <a
-              href="https://github.com/abdelrahman-ashraf2"
-              target="_blank"
-              rel="noreferrer"
-            >
-              GitHub
-            </a>
-          </div>
-        </div>
-        <div className="footer-bottom">
-          <span>© {new Date().getFullYear()} Abdelrahman Ashraf</span>
-          <p>
-            <ShieldCheck size={13} />
-            All security testing showcased in this portfolio is performed in
-            authorized, controlled, or intentionally vulnerable environments.
+    <section id="contact" className="identity-section identity-wrap">
+      <Heading number="06" label="GET IN TOUCH" title="Let’s talk security." />
+      <div className="contact-layout">
+        <div>
+          <p className="about-lead">
+            Open to internships, junior opportunities, and building useful
+            projects together.
           </p>
-          <a href="#home" aria-label="Back to top">
-            ↑
+        </div>
+        <div className="contact-links">
+          <a href={`mailto:${profile.email}`}>
+            <Mail size={20} />
+            <div>
+              <span className="contact-link-label">EMAIL</span>
+              <strong>{profile.email}</strong>
+            </div>
+            <ArrowUpRight size={18} />
+          </a>
+          <a href={profile.linkedin} target="_blank" rel="noreferrer">
+            <Link2 size={20} />
+            <div>
+              <span className="contact-link-label">LINKEDIN</span>
+              <strong>Abdelrahman Ashraf</strong>
+            </div>
+            <ArrowUpRight size={18} />
+          </a>
+          <a href={profile.github} target="_blank" rel="noreferrer">
+            <GitBranch size={20} />
+            <div>
+              <span className="contact-link-label">GITHUB</span>
+              <strong>abdelrahman-ashraf2</strong>
+            </div>
+            <ArrowUpRight size={18} />
           </a>
         </div>
       </div>
-    </footer>
+    </section>
   );
 }
+
 export default function Portfolio() {
-  const [project, setProject] = useState<Project | null>(null),
-    [report, setReport] = useState(false);
   return (
-    <>
+    <div className="identity-site">
+      <a className="skip-link" href="#main">
+        Skip to content
+      </a>
       <Navbar />
-      <main id="main">
+      <main id="main" tabIndex={-1}>
         <Hero />
-        <div className="focus-strip wrap">
-          WEB APPLICATION SECURITY <span>+</span> NETWORK VAPT <span>+</span>{' '}
-          VULNERABILITY ASSESSMENT <span>+</span> SECURITY REPORTING
-        </div>
         <TraceSectionBridge to="about" />
         <About />
-        <TraceSectionBridge to="services" />
-        <Services />
-        <TraceSectionBridge to="skills" />
-        <Skills />
-        <TraceSectionBridge to="methodology" />
-        <Methodology />
         <TraceSectionBridge to="projects" />
-        <Projects onProject={setProject} onReport={() => setReport(true)} />
-        <TraceSectionBridge to="experience" />
-        <ExperienceTimeline />
-        <TraceSectionBridge to="training" />
-        <Training />
-        <TraceSectionBridge to="reports" />
-        <ReportPreview onReport={() => setReport(true)} />
-        <WhyWork />
+        <Projects />
+        <TraceSectionBridge to="writeups" />
+        <Writeups />
+        <TraceSectionBridge to="toolkit" />
+        <Toolkit />
+        <TraceSectionBridge to="journey" />
+        <Journey />
         <TraceSectionBridge to="contact" />
         <Contact />
       </main>
       <TraceJourney />
-      <Footer />
-      <Dialog
-        open={!!project}
-        onOpenChange={(open) => {
-          if (!open) setProject(null);
-        }}
-      >
-        <DialogContent className="portfolio-dialog">
-          {project && (
-            <>
-              <DialogTitle className="dialog-title">
-                {project.title}
-              </DialogTitle>
-              <DialogDescription>
-                Completed Lab Project · {project.type}. High-level details are
-                based on the supplied CV and sanitized for public display.
-              </DialogDescription>
-              <div className="dialog-body">
-                <span className="status-pill">
-                  Completed Lab Project / {project.id}
-                </span>
-                <h3>Assessment summary</h3>
-                <p>{project.objective}</p>
-                <h3>Assessment workflow</h3>
-                <div className="workflow-chips">
-                  {project.workflow.map((w, i) => (
-                    <span key={w}>
-                      {w}
-                      {i < project.workflow.length - 1 && (
-                        <ArrowRight size={12} />
-                      )}
-                    </span>
-                  ))}
-                </div>
-                <h3>Documented outcomes</h3>
-                <ul>
-                  {project.deliverables.map((d) => (
-                    <li key={d}>{d}</li>
-                  ))}
-                </ul>
-                <h3>Tools & focus</h3>
-                <Tags items={project.tools} />
-                <div className="empty-evidence">
-                  <ShieldCheck />
-                  <strong>Completed in authorized lab environments.</strong>
-                  <p>
-                    Only high-level, sanitized details are published.
-                    Credentials and sensitive lab evidence remain private.
-                  </p>
-                </div>
-                {project.report && (
-                  <Button
-                    className="large-button"
-                    onClick={() => {
-                      setProject(null);
-                      setReport(true);
-                    }}
-                  >
-                    Open Sample Report <FileText />
-                  </Button>
-                )}
-              </div>
-            </>
-          )}
-        </DialogContent>
-      </Dialog>
-      <Dialog open={report} onOpenChange={setReport}>
-        <DialogContent className="portfolio-dialog report-dialog">
-          <DialogTitle className="dialog-title">
-            Sample Penetration Testing Report
-          </DialogTitle>
-          <DialogDescription>
-            Illustrative template only. No completed assessment, validated
-            finding, or real client data is represented.
-          </DialogDescription>
-          <div className="dialog-body">
-            <div className="report-actions">
-              <a className="secondary-link" href="./sample-report.txt" download>
-                <Download size={15} /> Download Report Template
-              </a>
-              <span className="outline-label">PLACEHOLDER DATA</span>
-            </div>
-            {reportSections.map((s, i) => (
-              <section className="report-chapter" key={s}>
-                <h3>
-                  <span>{String(i + 1).padStart(2, '0')}</span>
-                  {s}
-                </h3>
-                <p>{reportCopy[i]}</p>
-                {i === 5 && <FindingCard />}
-              </section>
-            ))}
-          </div>
-        </DialogContent>
-      </Dialog>
-    </>
+      <footer className="identity-footer">
+        <div className="identity-wrap">
+          <p>
+            © {new Date().getFullYear()} Abdelrahman Ashraf{' '}
+            <span>/ Learn. Test. Document.</span>
+          </p>
+          <a href="#home">
+            Back to top <ArrowRight size={14} />
+          </a>
+        </div>
+      </footer>
+    </div>
   );
 }

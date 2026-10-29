@@ -1,10 +1,7 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import Portfolio from '@/components/portfolio';
-import '@/src/styles.css';
-import '@/src/editorial.css';
-import '@/src/operations.css';
-import '@/src/trace.css';
+import '@/src/security-identity.css';
 import '@/src/journey.css';
 
 createRoot(document.getElementById('root')!).render(

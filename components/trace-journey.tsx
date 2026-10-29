@@ -2,15 +2,12 @@ import { useEffect, useRef, useState } from 'react';
 
 const chapters = [
   { id: 'home', label: 'Home', title: 'Arrival' },
-  { id: 'about', label: 'About', title: 'The investigator' },
-  { id: 'services', label: 'Services', title: 'Set the scope' },
-  { id: 'skills', label: 'Skills', title: 'Choose the tools' },
-  { id: 'methodology', label: 'Methodology', title: 'Follow the evidence' },
-  { id: 'projects', label: 'Projects', title: 'Open the case files' },
-  { id: 'experience', label: 'Experience', title: 'Build through practice' },
-  { id: 'training', label: 'Training', title: 'Keep learning' },
-  { id: 'reports', label: 'Reports', title: 'Make it actionable' },
-  { id: 'contact', label: 'Contact', title: 'Start a conversation' },
+  { id: 'about', label: 'About', title: 'Behind the terminal' },
+  { id: 'projects', label: 'Projects', title: 'Inspect the work' },
+  { id: 'writeups', label: 'Writeups', title: 'Follow the reasoning' },
+  { id: 'toolkit', label: 'Toolkit', title: 'Inside the toolkit' },
+  { id: 'journey', label: 'Journey', title: 'Keep learning' },
+  { id: 'contact', label: 'Contact', title: 'Open a conversation' },
 ] as const;
 
 type ChapterId = (typeof chapters)[number]['id'];
@@ -74,7 +71,7 @@ export function TraceJourney() {
     });
     const cards = Array.from(
       main.querySelectorAll<HTMLElement>(
-        '.service-card, .project-card, .skill-group, .experience-item, .training-card, .why-grid > article',
+        '.case-card, .tool-group, .timeline-item, .writeup-card',
       ),
     );
     const bridges = Array.from(
