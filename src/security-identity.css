@@ -1040,6 +1040,7 @@ body {
 }
 .identity-site .trace-route-active {
   stroke: #aab590;
+  vector-effect: none;
 }
 .identity-site .trace-route-cursor circle:first-child {
   fill: #bf815d;
@@ -1513,6 +1514,9 @@ body {
   }
   .identity-site .trace-bridge-label strong {
     font-size: 14px;
+  }
+  .identity-site .trace-route-active {
+    stroke-width: 2.4;
   }
 }
 @media (max-width: 380px) {
